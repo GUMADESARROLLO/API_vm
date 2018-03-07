@@ -9,11 +9,14 @@ $route['CLIENTES'] = 'Servicio_controllers/Clientes';
 $route['vstCLA'] = 'Servicio_controllers/vstCLA';
 $route['vtsArticulos'] = 'Servicio_controllers/vtsArticulos';
 $route['vtsCliente'] = 'Servicio_controllers/vtsCliente';
-$route['vtsTotales'] = 'Servicio_controllers/vtsTotales';
+//$route['vtsTotales'] = 'Servicio_controllers/vtsTotales';
 $route['MvstCLA'] = 'Servicio_controllers/MvstCLA';
+$route['Mcuotas'] = 'Servicio_controllers/Mcuotas';
+$route['HstItemFacturados'] = 'Servicio_controllers/HstItemFacturados';
 
 $route['MvtsArticulos'] = 'Servicio_controllers/MvtsArticulos';
 $route['MvtsCliente'] = 'Servicio_controllers/MvtsCliente';
+$route['Login'] = 'Servicio_controllers/Login';
 
 
 
