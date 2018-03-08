@@ -153,6 +153,7 @@ class servicios_model extends CI_Model
         foreach($query as $key){
             $arr['results'][$i]['mRut']     = $key['RUTA'];
             $arr['results'][$i]['mCcl']     = $key['CCL'];
+            $arr['results'][$i]['mNcl']     = $key['NOMBRECL'];
             $arr['results'][$i]['mArt']     = $key['ARTICULO'];
             $arr['results'][$i]['mDec']     = $key['DESCRIPCION'];
             $arr['results'][$i]['mDia']     = $key['Dia']->format('d-m-Y');
