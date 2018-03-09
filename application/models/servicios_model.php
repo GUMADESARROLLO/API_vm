@@ -38,6 +38,7 @@ class servicios_model extends CI_Model
                 $rtnUsuario['results'][$i]['mArti'] = $key['ARTICULO'];
                 $rtnUsuario['results'][$i]['mDesc'] = $key['DESCRIPCION'];
                 $rtnUsuario['results'][$i]['mCant'] = $key['CANTIDAD'];
+                $rtnUsuario['results'][$i]['mCnAc'] = $this->Lleva($key['ARTICULO'],$key['RUTA']);
                 $i++;
             }
         }else{
@@ -45,6 +46,7 @@ class servicios_model extends CI_Model
         }
         echo json_encode($rtnUsuario);
     }
+
     public function Articulos()
     {
         $i=0;
@@ -61,6 +63,19 @@ class servicios_model extends CI_Model
         }
         echo json_encode($arr);
         $this->sqlsrv->close();
+    }
+
+    public function Lleva($Articulo,$Ruta){
+       $Cantidad="0";
+       
+        $query = $this->sqlsrv->fetchArray("SELECT SUM(Cantidad) AS Cantidad FROM vm_Mensuales_vstCLA WHERE RUTA='".$Ruta."' AND ARTICULO='".$Articulo."' GROUP BY ARTICULO",SQLSRV_FETCH_ASSOC);
+        foreach($query as $key){
+            $retVal = ($key['Cantidad']=="") ? "0" : $key['Cantidad'] ;
+            $Cantidad     = number_format($retVal,0);            
+        }       
+        
+        return $Cantidad;
+
     }
     public function Clientes($Vendedor)
     {
