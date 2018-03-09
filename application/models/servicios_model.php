@@ -13,7 +13,7 @@ class servicios_model extends CI_Model
         $this->db->where('Activo',"1");
         $this->db->where('Password',$pass);
         $query = $this->db->get('usuarios');
-
+        
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $key) {
                 $rtnUsuario['results'][$i]['mUser'] = $key['Usuario'];
@@ -21,7 +21,7 @@ class servicios_model extends CI_Model
                 $rtnUsuario['results'][$i]['mPass'] = $key['Password'];
             }
         }else{
-            $rtnUsuario['results'][$i]['mUser'] = "";
+            $rtnUsuario['results'][$i]['mUser'] = $query->num_rows();
         }
         echo json_encode($rtnUsuario);
     }

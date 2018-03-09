@@ -48,13 +48,13 @@ class Servicio_controllers extends CI_Controller {
     }
     public function Mcuotas()
     {
-        //$this->servicios_model->Mcuotas($_POST['mVendedor']);
-        $this->servicios_model->Mcuotas("F03");
+        $this->servicios_model->Mcuotas($_POST['mVendedor']);
+        //$this->servicios_model->Mcuotas("F03");
     }
     public function HstItemFacturados()
     {
-        //$this->servicios_model->HstItemFacturados($_POST['mVendedor']);
-        $this->servicios_model->HstItemFacturados("F09");
+        $this->servicios_model->HstItemFacturados($_POST['mVendedor']);
+        //$this->servicios_model->HstItemFacturados("F09");
     }
 
 
