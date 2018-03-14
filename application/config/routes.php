@@ -13,6 +13,8 @@ $route['vtsCliente'] = 'Servicio_controllers/vtsCliente';
 $route['MvstCLA'] = 'Servicio_controllers/MvstCLA';
 $route['Mcuotas'] = 'Servicio_controllers/Mcuotas';
 $route['HstItemFacturados'] = 'Servicio_controllers/HstItemFacturados';
+$route['LOTES'] = 'Servicio_controllers/LOTES';
+$route['PUNTOS'] = 'Servicio_controllers/PUNTOS';
 
 $route['MvtsArticulos'] = 'Servicio_controllers/MvtsArticulos';
 $route['MvtsCliente'] = 'Servicio_controllers/MvtsCliente';

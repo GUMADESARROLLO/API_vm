@@ -5,6 +5,7 @@ class servicios_model extends CI_Model
         parent::__construct();
         $this->load->database();
     }
+    public $CONDICION = '2015-06-01';
     public function Login($usuario,$pass){
         $i=0;
         $rtnUsuario = array();
@@ -240,6 +241,52 @@ class servicios_model extends CI_Model
         }
         echo json_encode($arr);
         $this->sqlsrv->close();
+    }
+    public function LOTES()
+    {
+        $i=0;
+        $arr=array();
+        $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_Lotes",SQLSRV_FETCH_ASSOC);
+        foreach($query as $key){
+            $arr['results'][$i]['mArt']     = $key['ARTICULO'];
+            $arr['results'][$i]['mLot']     = $key['LOTE'];
+            $arr['results'][$i]['mFvc']     = $key['FECHA_VENCIMIENTO'];
+            $arr['results'][$i]['mCds']     = number_format($key['CANT_DISPONIBLE'],2);
+            $i++;
+        }
+        echo json_encode($arr);
+        $this->sqlsrv->close();
+    }
+    public function FacturaPuntos($Vendedor)
+    {
+        $i=0;
+        $rtnCliente=array();
+        $query = $this->sqlsrv->fetchArray("SELECT CLIENTE,FECHA,FACTURA,SUM(TT_PUNTOS) AS TOTAL,RUTA FROM vtVS2_Facturas_CL WHERE RUTA = '".$Vendedor."'
+                        GROUP BY FACTURA,FECHA,RUTA,CLIENTE",SQLSRV_FETCH_ASSOC);
+        foreach($query as $key){
+            $Remanente = number_format($this->FacturaSaldo($key['FACTURA'],$key['TOTAL']),2,'.','');
+            if (intval($Remanente) > 0.00 ) {
+                $rtnCliente['results'][$i]['mFch']  = $key['FECHA']->format('Y-m-d');
+                $rtnCliente['results'][$i]['mClt']  = $key['CLIENTE'];
+                $rtnCliente['results'][$i]['mFct']  = $key['FACTURA'];
+                $rtnCliente['results'][$i]['mPnt']  = number_format($key['TOTAL'],2,'.','');
+                $rtnCliente['results'][$i]['mRmT']  = $Remanente;
+                $i++;
+            }
+        }
+        echo json_encode($rtnCliente);
+        $this->sqlsrv->close();
+    }
+    public function FacturaSaldo($id,$pts){
+        $this->db->where('Factura',$id);
+        $this->db->select('Puntos');
+        $query = $this->db->get('visys.rfactura');
+        if($query->num_rows() > 0){
+            $parcial = $query->result_array()[0]['Puntos'];
+        } else {
+            $parcial = $pts;
+        }
+        return $parcial;
     }
 }
 

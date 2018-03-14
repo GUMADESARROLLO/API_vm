@@ -54,7 +54,15 @@ class Servicio_controllers extends CI_Controller {
     public function HstItemFacturados()
     {
         $this->servicios_model->HstItemFacturados($_POST['mVendedor']);
-        //$this->servicios_model->HstItemFacturados("F09");
+        
+    }
+    public function LOTES()
+    {
+        $this->servicios_model->LOTES();
+    }
+    public function PUNTOS()
+    {
+        $this->servicios_model->FacturaPuntos($_POST['mVendedor']);
     }
 
 
