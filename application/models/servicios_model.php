@@ -60,6 +60,7 @@ class servicios_model extends CI_Model
             $arr['results'][$i]['mLab']     = $key['LABORATORIO'];
             $arr['results'][$i]['mUnd']     = $key['UNIDAD_ALMACEN'];
             $arr['results'][$i]['mPts']     = $key['PUNTOS'];
+            $arr['results'][$i]['mRgl']     = $key['REGLAS'];
             $i++;
         }
         echo json_encode($arr);
