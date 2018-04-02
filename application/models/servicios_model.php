@@ -33,6 +33,12 @@ class servicios_model extends CI_Model
         $this->db->where('RUTA',$vendedor);
         $query = $this->db->get('cuotasmes');
 
+        $rtnUsuario['results'][$i]['mRuta'] = $vendedor;
+        $rtnUsuario['results'][$i]['mArti'] = "";
+        $rtnUsuario['results'][$i]['mDesc'] = "";
+        $rtnUsuario['results'][$i]['mCant'] = "";
+        $rtnUsuario['results'][$i]['mCnAc'] = "";
+
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $key) {
                 $rtnUsuario['results'][$i]['mRuta'] = $key['RUTA'];
@@ -53,6 +59,15 @@ class servicios_model extends CI_Model
         $i=0;
         $arr = array();
         $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_Articulos",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mCod']     = "";
+        $arr['results'][$i]['mNam']     = "";
+        $arr['results'][$i]['mExi']     = 0;
+        $arr['results'][$i]['mLab']     = "";
+        $arr['results'][$i]['mUnd']     = "";
+        $arr['results'][$i]['mPts']     = "";
+        $arr['results'][$i]['mRgl']     = "";
+
         foreach($query as $key){
             $arr['results'][$i]['mCod']     = $key['ARTICULO'];
             $arr['results'][$i]['mNam']     = $key['DESCRIPCION'];
@@ -84,6 +99,12 @@ class servicios_model extends CI_Model
         $i=0;
         $arr=array();
         $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_Clientes WHERE VENDEDOR='".$Vendedor."'",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mCod']     = "";
+        $arr['results'][$i]['mNam']     = "";
+        $arr['results'][$i]['mDir']     = "";
+        $arr['results'][$i]['mRuc']     = "";
+
         foreach($query as $key){
             $arr['results'][$i]['mCod']     = $key['CLIENTE'];
             $arr['results'][$i]['mNam']     = $key['NOMBRE'];
@@ -99,6 +120,16 @@ class servicios_model extends CI_Model
         $i=0;
         $arr=array();
         $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_3M_vstCLA",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mRut']     = "";
+        $arr['results'][$i]['mCcl']     = "";
+        $arr['results'][$i]['mArt']     = "";
+        $arr['results'][$i]['mDec']     = "";
+        $arr['results'][$i]['mDia']     = "";
+        $arr['results'][$i]['mCnt']     = 0;
+        $arr['results'][$i]['mClf']     = "";
+        $arr['results'][$i]['mVnt']     = "";
+
         foreach($query as $key){
             $arr['results'][$i]['mRut']     = $key['RUTA'];
             $arr['results'][$i]['mCcl']     = $key['CCL'];
@@ -118,6 +149,15 @@ class servicios_model extends CI_Model
         $i=0;
         $arr=array();
         $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_3M_vtsArticulos WHERE RUTA='".$vendedor."'",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mRut']     = $vendedor;
+        $arr['results'][$i]['mArt']     = "";
+        $arr['results'][$i]['mDec']     = "";
+        $arr['results'][$i]['mClf']     = "";
+        $arr['results'][$i]['mCnt']     = 0;
+        $arr['results'][$i]['mVnt']     = 0;
+        $arr['results'][$i]['mHts']     = "";
+
         foreach($query as $key){
             $arr['results'][$i]['mRut']     = $key['RUTA'];
             $arr['results'][$i]['mArt']     = $key['ARTICULO'];
@@ -136,6 +176,14 @@ class servicios_model extends CI_Model
         $i=0;
         $arr=array();
         $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_3M_vtsCliente WHERE RUTA='".$vendedor."'",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mRut']     = $vendedor;
+        $arr['results'][$i]['mCcl']     = "";
+        $arr['results'][$i]['mNam']     = "";
+        $arr['results'][$i]['mRuc']     = "";
+        $arr['results'][$i]['mHts']     = "";
+        $arr['results'][$i]['mVnt']     = 0;
+
         foreach($query as $key){
             $arr['results'][$i]['mRut']     = $key['RUTA'];
             $arr['results'][$i]['mCcl']     = $key['CCL'];
@@ -167,6 +215,17 @@ class servicios_model extends CI_Model
         $i=0;
         $arr=array();
         $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_Mensuales_vstCLA WHERE RUTA='".$vendedor."'",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mRut']     = $vendedor;
+        $arr['results'][$i]['mCcl']     = "";
+        $arr['results'][$i]['mNcl']     = "";
+        $arr['results'][$i]['mArt']     = "";
+        $arr['results'][$i]['mDec']     = "";
+        $arr['results'][$i]['mDia']     = "";
+        $arr['results'][$i]['mCnt']     = 0;
+        $arr['results'][$i]['mClf']     = "";
+        $arr['results'][$i]['mVnt']     = 0;
+
         foreach($query as $key){
             $arr['results'][$i]['mRut']     = $key['RUTA'];
             $arr['results'][$i]['mCcl']     = $key['CCL'];
@@ -187,16 +246,30 @@ class servicios_model extends CI_Model
         $i=0;
         $arr=array();
         $qMetas = $this->sqlsrv->fetchArray("SELECT * FROM vm_Mensuales_vtsTotales WHERE RUTA='".$vendedor."'",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mRut']     = $vendedor;
+        $arr['results'][$i]['mventa']   = 0;
+        $arr['results'][$i]['mV3m']     = 0;
+        $arr['results'][$i]['mMeta']    = 0;
+
         foreach($qMetas as $key){
             $arr['results'][$i]['mRut']     = $key['RUTA'];
             $arr['results'][$i]['mventa']   = number_format($key['Venta'],2);
             $arr['results'][$i]['mV3m']     = number_format($key['vst_3m'],2);            
-            $arr['results'][$i]['mMeta']    = number_format($key['metas'],2);            
-
+            $arr['results'][$i]['mMeta']    = number_format($key['metas'],2);
         }
 
         $i++;
         $qVstas = $this->sqlsrv->fetchArray("SELECT * FROM vm_Mensuales_vtsArticulos WHERE RUTA='".$vendedor."' ",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mRut']     = $vendedor;
+        $arr['results'][$i]['mArt']     = "";
+        $arr['results'][$i]['mDic']     = "";
+        $arr['results'][$i]['mClf']     = "";
+        $arr['results'][$i]['mCnt']     = 0;
+        $arr['results'][$i]['mVnt']     = 0;
+        $arr['results'][$i]['mHts']     = "";
+
         foreach($qVstas as $key){
             $arr['results'][$i]['mRut']     = $key['RUTA'];
             $arr['results'][$i]['mArt']     = $key['ARTICULO'];
@@ -215,6 +288,14 @@ class servicios_model extends CI_Model
         $i=0;
         $arr=array();
         $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_Mensuales_vtsCliente WHERE RUTA='".$vendedor."'",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mRut']     = $vendedor;
+        $arr['results'][$i]['mCcl']     = "";
+        $arr['results'][$i]['mNam']     = "";
+        $arr['results'][$i]['mRuc']     = "";
+        $arr['results'][$i]['mHts']     = "";
+        $arr['results'][$i]['mVnt']     = 0;
+
         foreach($query as $key){
             $arr['results'][$i]['mRut']     = $key['RUTA'];
             $arr['results'][$i]['mCcl']     = $key['CCL'];
@@ -232,6 +313,13 @@ class servicios_model extends CI_Model
         $i=0;
         $arr=array();
         $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_HstItemFacturados WHERE RUTA='".$vendedor."'",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mCcl']     = $vendedor;
+        $arr['results'][$i]['mArt']     = "";
+        $arr['results'][$i]['mDes']     = "";
+        $arr['results'][$i]['mCan']     = 0;
+        $arr['results'][$i]['mVnt']     = 0;
+
         foreach($query as $key){
             $arr['results'][$i]['mCcl']     = $key['CCL'];
             $arr['results'][$i]['mArt']     = $key['ARTICULO'];
@@ -248,6 +336,12 @@ class servicios_model extends CI_Model
         $i=0;
         $arr=array();
         $query = $this->sqlsrv->fetchArray("SELECT * FROM vm_Lotes",SQLSRV_FETCH_ASSOC);
+
+        $arr['results'][$i]['mArt']     = "";
+        $arr['results'][$i]['mLot']     = "";
+        $arr['results'][$i]['mFvc']     = "";
+        $arr['results'][$i]['mCds']     = 0;
+
         foreach($query as $key){
             $arr['results'][$i]['mArt']     = $key['ARTICULO'];
             $arr['results'][$i]['mLot']     = $key['LOTE'];
@@ -264,6 +358,13 @@ class servicios_model extends CI_Model
         $rtnCliente=array();
         $query = $this->sqlsrv->fetchArray("SELECT CLIENTE,FECHA,FACTURA,SUM(TT_PUNTOS) AS TOTAL,RUTA FROM vtVS2_Facturas_CL WHERE RUTA = '".$Vendedor."'
                         GROUP BY FACTURA,FECHA,RUTA,CLIENTE",SQLSRV_FETCH_ASSOC);
+
+        $rtnCliente['results'][$i]['mFch']  = "";
+        $rtnCliente['results'][$i]['mClt']  = "";
+        $rtnCliente['results'][$i]['mFct']  = "";
+        $rtnCliente['results'][$i]['mPnt']  = 0;
+        $rtnCliente['results'][$i]['mRmT']  = "";
+
         foreach($query as $key){
             $Remanente = number_format($this->FacturaSaldo($key['FACTURA'],$key['TOTAL']),2,'.','');
             if (intval($Remanente) > 0.00 ) {

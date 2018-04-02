@@ -37,7 +37,7 @@ class Servicio_controllers extends CI_Controller {
     }
     public function MvtsArticulos()
     {
-        $this->servicios_model->MvtsArticulos($_POST['mVendedor']);
+        $this->servicios_model->MvtsArticulos("F09");
     }
     public function MvtsCliente()
     {
