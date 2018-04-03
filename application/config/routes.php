@@ -18,6 +18,10 @@ $route['PUNTOS'] = 'Servicio_controllers/PUNTOS';
 
 $route['MvtsArticulos'] = 'Servicio_controllers/MvtsArticulos';
 $route['MvtsCliente'] = 'Servicio_controllers/MvtsCliente';
+$route['Farmacias'] = 'Servicio_controllers/Farmacias';
+
+$route['Llaves'] = 'Servicio_controllers/Llaves';
+
 $route['Login'] = 'Servicio_controllers/Login';
 
 

@@ -14,7 +14,6 @@ class servicios_model extends CI_Model
         $this->db->where('Activo',"1");
         $this->db->where('Password',$pass);
         $query = $this->db->get('usuarios');
-        
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $key) {
                 $rtnUsuario['results'][$i]['mUser'] = $key['Usuario'];
@@ -25,6 +24,58 @@ class servicios_model extends CI_Model
             $rtnUsuario['results'][$i]['mUser'] = $query->num_rows();
         }
         echo json_encode($rtnUsuario);
+    }
+    public function Llaves($Vendedor){
+        $i=0;
+        $rtnUsuario = array();
+
+        $this->db->where('Ruta',$Vendedor);
+        $query = $this->db->get('llaves');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $key) {
+                $rtnUsuario['results'][$i]['mRut'] = $key['Ruta'];
+                $rtnUsuario['results'][$i]['mFar'] = $key['FARMACIA'];
+                $rtnUsuario['results'][$i]['mMed'] = $key['MEDICOS'];
+            }
+        }else{
+            $rtnUsuario['results'][$i]['mUser'] = $query->num_rows();
+        }
+        echo json_encode($rtnUsuario);
+    }
+    public function Farmacias($Ruta){
+        $i=0;
+        $arr = array();
+        //$this->db->where('Ruta',$Ruta);
+        $query = $this->db->get('farmacias');
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $key) {
+                $arr['results'][$i]['mUID'] = $key['IdFarmacia'];
+                $arr['results'][$i]['mNFR'] = $key['NombreFarmacia'];
+                $arr['results'][$i]['mNPR'] = $key['NombrePropietario'];
+                $arr['results'][$i]['mDIR'] = $key['Direccion'];
+                $arr['results'][$i]['mFAN'] = $key['FechaAniversario'];
+                $arr['results'][$i]['mTFR'] = $key['TelfFarmacia'];
+                $arr['results'][$i]['mTFP'] = $key['TelfPropietario'];
+                $arr['results'][$i]['mHAT'] = $key['HorarioAtencion'];
+                $arr['results'][$i]['mRCP'] = $key['ResponsableCompra'];
+                $arr['results'][$i]['mTRC'] = $key['TelfRespCompra'];
+                $arr['results'][$i]['mCDP'] = $key['CantDependiente'];
+                $arr['results'][$i]['mPCP'] = $key['PotencialMensualCompra'];
+                $arr['results'][$i]['mDPF'] = $key['DiasPagoFact'];
+                $arr['results'][$i]['mRVC'] = $key['RespVencidos'];
+                $arr['results'][$i]['mRCJ'] = $key['RespCanjes'];
+                $arr['results'][$i]['mNDM'] = $key['NumDepMostrador'];
+                $arr['results'][$i]['mPPP'] = $key['PartProgPuntos'];
+                $arr['results'][$i]['mEBD'] = $key['EntregaBenefDepend'];
+                $arr['results'][$i]['mPIP'] = $key['PermiteImpulsadoras'];
+                $arr['results'][$i]['mCCO'] = $key['CadenaCooperativa'];
+                $i++;
+            }
+        }else{
+            $arr['results'][$i]['mUser'] = $query->num_rows();
+        }
+        echo json_encode($arr);
     }
     public function Mcuotas($vendedor){
         $i=0;
