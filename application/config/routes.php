@@ -22,4 +22,5 @@ $route['Farmacias'] = 'Servicio_controllers/Farmacias';
 
 $route['Llaves'] = 'Servicio_controllers/Llaves';
 
+
 $route['Login'] = 'Servicio_controllers/Login';

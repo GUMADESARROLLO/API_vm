@@ -40,12 +40,9 @@ class Servicio_controllers extends CI_Controller {
         $this->servicios_model->MvtsArticulos($_POST['mVendedor']);
     }
     public function Farmacias(){
-        $this->servicios_model->Farmacias("F09");
-        /*$cobros = '[{"mCCO":0,"mCDP":"10","mDIR":"ADMINISTRACION DE RENTA 6 AL SUR","mDPF":"Lunes , Martes","mEBD":0,"mFAN":"","mHAT":"DE LUNES A VIERNES","mNDM":"2","mNFR":"NOMBRE DE FARMACIA","mNPR":"NOMBRE DE PROPIETARIO","mPCP":"1000","mPIP":1,"mPPP":1,"mRCJ":"MRYAN ESPINOZA","mRCP":"MARYAN ESPINOZA","mRVC":"MARYAN ESPINOZA","mTFR":"82449100","mTRC":"82449100","mUID":"0"}]
+        $this->servicios_model->Farmacias($_POST['mVendedor']);
+        $this->servicios_model->guardandoCambiosFarmacia($_POST['mFarmacias']);
 
-';
-        echo $cobros;*/
-      
     }
     public function MvtsCliente()
     {
@@ -79,6 +76,7 @@ class Servicio_controllers extends CI_Controller {
 
     /*ADD-UPDATE FARMACIA*/
     public function guardarCambiosFarmacia() {
-        $this->servicios_model->guardandoCambiosFarmacia(json_decode($_POST['data'],true));
+
+        $this->servicios_model->guardandoCambiosFarmacia(json_decode($_POST['mFarmacias'],true));
     }
 }
