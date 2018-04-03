@@ -25,9 +25,16 @@ class servicios_model extends CI_Model
         }
         echo json_encode($rtnUsuario);
     }
-    public function Llaves($Vendedor){
+    public function Llaves($Vendedor,$Farmacias,$Medicos){
         $i=0;
         $rtnUsuario = array();
+
+        $this->db->where('Ruta', $Vendedor);
+        $this->db->update('llaves', array(
+            'FARMACIA' => $Farmacias,
+            'MEDICOS' => $Medicos
+        ));
+
 
         $this->db->where('Ruta',$Vendedor);
         $query = $this->db->get('llaves');
@@ -40,6 +47,8 @@ class servicios_model extends CI_Model
         }else{
             $rtnUsuario['results'][$i]['mUser'] = $query->num_rows();
         }
+
+
         echo json_encode($rtnUsuario);
     }
     public function Farmacias($Ruta){

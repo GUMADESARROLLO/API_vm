@@ -53,7 +53,7 @@ class Servicio_controllers extends CI_Controller {
     }
     public function Llaves()
     {
-        $this->servicios_model->Llaves($_POST['mVendedor']);
+        $this->servicios_model->Llaves($_POST['mVendedor'],$_POST['mFarmacias'],$_POST['mMedicos']);
     }
     public function Login(){
         $this->servicios_model->Login($_POST['mUser'],$_POST['mPassword']);
