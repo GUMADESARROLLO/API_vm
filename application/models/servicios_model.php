@@ -441,6 +441,20 @@ class servicios_model extends CI_Model
         }
         return $parcial;
     }
+
+    /*ADD-UPDATE FARMACIA*/
+    public function guardandoCambiosFarmacia($data) {
+        if (count($data)>0) {
+            foreach ($data as $key => $value) {
+                foreach ($value as $key) {
+                    $fecha = date('Y-m-d', strtotime($key['mFAN']));
+
+                    $result = $this->db->query("call sp_farmacias(".$key['mUID'].",'".$key['mNFR']."','".$key['mNPR']."','".$key['mDIR']."','".$fecha."','".$key['mTFR']."','".$key['mTFP']."','".$key['mHAT']."','".$key['mRCP']."','".$key['mTRC']."','".$key['mCDP']."','".$key['mPCP']."','".$key['mDPF']."','".$key['mRVC']."','".$key['mRCJ']."','".$key['mNDM']."',".$key['mPPP'].",".$key['mEBD'].",".$key['mPIP'].",".$key['mCCO'].")");
+                }
+            }
+            if ($result) {
+                echo true;
+            }
+        }
+    }
 }
-
-

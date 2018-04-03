@@ -77,5 +77,8 @@ class Servicio_controllers extends CI_Controller {
         $this->servicios_model->FacturaPuntos($_POST['mVendedor']);
     }
 
-
+    /*ADD-UPDATE FARMACIA*/
+    public function guardarCambiosFarmacia() {
+        $this->servicios_model->guardandoCambiosFarmacia(json_decode($_POST['data'],true));
+    }
 }
