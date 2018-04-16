@@ -21,6 +21,15 @@ $route['MvtsCliente'] = 'Servicio_controllers/MvtsCliente';
 $route['Farmacias'] = 'Servicio_controllers/Farmacias';
 
 $route['Llaves'] = 'Servicio_controllers/Llaves';
+$route['DeleteFarmacia'] = 'Servicio_controllers/DeleteFarmacia';
+$route['DeleteMedicos'] = 'Servicio_controllers/DeleteMedicos';
+$route['ROUND'] = 'Servicio_controllers/ROUND';
+$route['Especialidades'] = 'Servicio_controllers/Especialidades';
+$route['Medicos'] = 'Servicio_controllers/Medicos';
+
+$route['Logs'] = 'Servicio_controllers/Logs';
+
+
 
 
 $route['Login'] = 'Servicio_controllers/Login';
