@@ -24,3 +24,5 @@ $route['Llaves'] = 'Servicio_controllers/Llaves';
 
 
 $route['Login'] = 'Servicio_controllers/Login';
+
+$route['IUMedicos'] = 'Servicio_controllers/guardarCambiosMedicos';
