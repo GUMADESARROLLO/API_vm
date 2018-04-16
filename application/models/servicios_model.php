@@ -25,9 +25,58 @@ class servicios_model extends CI_Model
         }
         echo json_encode($rtnUsuario);
     }
+
+    public function ROUND(){
+        $i=0;
+        $rtnUsuario = array();
+        $query = $this->db->get('cuotasmes');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $key) {
+                $this->db->where('RUTA', $key['RUTA']);
+                $this->db->where('ARTICULO', $key['ARTICULO']);
+                $this->db->update('cuotasmes', array(
+                    'CANTIDAD' => $this->getRound($key['CANTIDAD'])           
+                ));
+                $rtnUsuario['results'][$i]['mRuta'] = $key['RUTA'];
+                $rtnUsuario['results'][$i]['mArti'] = $key['ARTICULO'];
+                $rtnUsuario['results'][$i]['mDesc'] = $key['DESCRIPCION'];
+                $rtnUsuario['results'][$i]['mCant'] = $this->getRound($key['CANTIDAD']);
+                $i++;                
+            }
+        }else{
+            $rtnUsuario['results'][$i]['mUser'] = $query->num_rows();
+        }
+        echo json_encode($rtnUsuario);
+    }
+    public function Especialidades(){
+        $i=0;
+        $rtnUsuario = array();
+        $query = $this->db->get('especialidad');
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $key) {
+                $rtnUsuario['results'][$i]['mUID'] = $key['IdEspecialidad'];
+                $rtnUsuario['results'][$i]['mName'] = $key['Especialidad'];
+                $i++;
+            }
+        }else{
+            $rtnUsuario['results'][$i]['mUID'] = $query->num_rows();
+        }
+        echo json_encode($rtnUsuario);
+    }
+    function getRound($cantidad){        
+        $query = $this->db->query("SELECT ROUND($cantidad, 0) valor");
+        foreach ($query->result() as $row){
+            return $row->valor;
+        }
+
+        return $cantidad;
+    }
+
     public function Llaves($Vendedor,$Farmacias,$Medicos){
         $i=0;
         $rtnUsuario = array();
+
+
 
         $this->db->where('Ruta', $Vendedor);
         $this->db->update('llaves', array(
@@ -43,6 +92,7 @@ class servicios_model extends CI_Model
                 $rtnUsuario['results'][$i]['mRut'] = $key['Ruta'];
                 $rtnUsuario['results'][$i]['mFar'] = $key['FARMACIA'];
                 $rtnUsuario['results'][$i]['mMed'] = $key['MEDICOS'];
+                $rtnUsuario['results'][$i]['mRpt'] = $key['REPORTE'];
             }
         }else{
             $rtnUsuario['results'][$i]['mUser'] = $query->num_rows();
@@ -59,8 +109,8 @@ class servicios_model extends CI_Model
 
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $key) {
-                $arr['results'][$i]['mUID'] = $key['IdFarmacia'];
-                $arr['results'][$i]['mNFR'] = $key['NombreFarmacia'];
+                $arr['results'][$i]['mUID'] = $key['IdMedico'];
+                $arr['results'][$i]['mNFR'] = $key['NombreMedico'];
                 $arr['results'][$i]['mNPR'] = $key['NombrePropietario'];
                 $arr['results'][$i]['mDIR'] = $key['Direccion'];
                 $arr['results'][$i]['mFAN'] = $key['FechaAniversario'];
@@ -79,6 +129,55 @@ class servicios_model extends CI_Model
                 $arr['results'][$i]['mEBD'] = $key['EntregaBenefDepend'];
                 $arr['results'][$i]['mPIP'] = $key['PermiteImpulsadoras'];
                 $arr['results'][$i]['mCCO'] = $key['CadenaCooperativa'];
+                $arr['results'][$i]['Ruta'] = $key['Ruta'];
+                $i++;
+            }
+        }else{
+            $arr['results'][$i]['mUser'] = $query->num_rows();
+        }
+        echo json_encode($arr);
+    }
+    public function Medicos($Ruta){
+        $i=0;
+        $arr = array();
+        //$this->db->where('Ruta',$Ruta);
+        $query = $this->db->get('medicos');
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $key) {
+                $arr['results'][$i]['mUID'] = $key['IdMedico'];
+                $arr['results'][$i]['m01'] = $key['NombreMedico'];
+                $arr['results'][$i]['m02'] = $key['FNacimiento'];
+                $arr['results'][$i]['m03'] = $key['Especialidad'];
+                $arr['results'][$i]['m04'] = $key['SubEspecialidad'];
+                $arr['results'][$i]['m05'] = $key['Direccion'];
+                $arr['results'][$i]['m06'] = $key['TelfClinica'];
+                $arr['results'][$i]['m07'] = $key['Celular'];
+                $arr['results'][$i]['m08'] = $key['Email'];
+                $arr['results'][$i]['m09'] = $key['AUGraduacion'];
+                $arr['results'][$i]['m10'] = $key['NEPSPrivado'];
+                $arr['results'][$i]['m11'] = $key['MCMFrecuente'];
+                $arr['results'][$i]['m12'] = $key['CConsulta'];
+                $arr['results'][$i]['m13'] = $key['PFarmacia'];
+                $arr['results'][$i]['m14'] = $key['SocioClinica'];
+                $arr['results'][$i]['m15'] = $key['MCelular'];
+                $arr['results'][$i]['m16'] = $key['MVehiculo'];
+                $arr['results'][$i]['m17'] = $key['MReloj'];
+                $arr['results'][$i]['m18'] = $key['MComputadora'];
+                $arr['results'][$i]['m19'] = $key['NombreAsis'];
+                $arr['results'][$i]['m20'] = $key['TExtensionAsis'];
+                $arr['results'][$i]['m21'] = $key['CelularAsis'];
+                $arr['results'][$i]['m22'] = $key['EmailAsis'];
+                $arr['results'][$i]['m23'] = $key['FNacimientoAsis'];
+                $arr['results'][$i]['m24'] = $key['ComputadoraAsis'];
+                $arr['results'][$i]['m25'] = $key['OLBAMedica'];
+                $arr['results'][$i]['m26'] = $key['DeportePractica'];
+                $arr['results'][$i]['m27'] = $key['Pasatiempo'];
+                $arr['results'][$i]['m28'] = $key['SMParticipa'];
+                $arr['results'][$i]['m29'] = $key['Facebook'];
+                $arr['results'][$i]['m30'] = $key['Twitter'];
+                $arr['results'][$i]['m31'] = $key['Linkedin'];
+                $arr['results'][$i]['m32'] = $key['Instagram'];
                 $i++;
             }
         }else{
@@ -456,11 +555,21 @@ class servicios_model extends CI_Model
         if (count($data)>0) {
             foreach(json_decode($data, true) as $key){
                 $fecha = date('Y-m-d', strtotime($key['mFAN']));
-                $result = $this->db->query("call sp_farmacias(".$key['mUID'].",'".$key['mNFR']."','".$key['mNPR']."','".$key['mDIR']."','".$fecha."','".$key['mTFR']."','".$key['mTFP']."','".$key['mHAT']."','".$key['mRCP']."','".$key['mTRC']."','".$key['mCDP']."','".$key['mPCP']."','".$key['mDPF']."','".$key['mRVC']."','".$key['mRCJ']."','".$key['mNDM']."',".$key['mPPP'].",".$key['mEBD'].",".$key['mPIP'].",".$key['mCCO'].")");
+                $result = $this->db->query("call sp_farmacias('".$key['mUID']."','".$key['mNFR']."','".$key['mNPR']."','".$key['mDIR']."','".$fecha."','".$key['mTFR']."','".$key['mTFP']."','".$key['mHAT']."','".$key['mRCP']."','".$key['mTRC']."','".$key['mCDP']."','".$key['mPCP']."','".$key['mDPF']."','".$key['mRVC']."','".$key['mRCJ']."','".$key['mNDM']."',".$key['mPPP'].",".$key['mEBD'].",".$key['mPIP'].",".$key['mCCO'].",'".$key['Ruta']."')");
             }
-            if ($result) {
-                echo true;
-            }
+        }
+    }
+
+    public function DeleteFarmacia($uID){
+        $result = $this->db->delete('farmacias', array('IdFarmacia' => $uID));
+        if ($result) {
+            echo json_encode("OK");
+        }
+    }
+    public function DeleteMedicos($uID){
+        $result = $this->db->delete('medicos', array('IdMedico' => $uID));
+        if ($result) {
+            echo json_encode("OK");
         }
     }
 }
