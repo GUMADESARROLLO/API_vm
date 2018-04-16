@@ -104,7 +104,11 @@ class Servicio_controllers extends CI_Controller {
 
     /*ADD-UPDATE FARMACIA*/
     public function guardarCambiosFarmacia() {
-
         $this->servicios_model->guardandoCambiosFarmacia(json_decode($_POST['mFarmacias'],true));
+    }
+
+    /*ADD-UPDATE MEDICOS*/
+    public function guardarCambiosMedicos() {
+        $this->servicios_model->guardandoCambiosMedicos(json_decode($_POST['mMedicos'],true));
     }
 }

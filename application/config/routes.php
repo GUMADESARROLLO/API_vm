@@ -33,3 +33,5 @@ $route['Logs'] = 'Servicio_controllers/Logs';
 
 
 $route['Login'] = 'Servicio_controllers/Login';
+
+$route['IUMedicos'] = 'Servicio_controllers/guardarCambiosMedicos';

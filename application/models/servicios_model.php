@@ -560,6 +560,55 @@ class servicios_model extends CI_Model
         }
     }
 
+
+    /*ADD-UPDATE MEDICOS*/
+    public function guardandoCambiosMedicos($data) {
+        if (count($data)>0) {
+            foreach (json_decode($data, true) as $key){
+                $f1 = date('Y-m-d', strtotime($key['m02']));
+                $f2 = date('Y-m-d', strtotime($key['m20']));
+                
+                $result = $this->db->query("call sp_medicos(
+                '".$key['mUID']./*IdMedico*/"',
+                '".$key['m01']./*Nombre medico*/"',
+                '".$f1./*Fecha nacimiento*/"',
+                '".$key['m31']./*Especialidad*/"',
+                '".$key['m32']./*Sub especialidad*/"',
+                '".$key['m03']./*Direccion*/"',
+                '".$key['m04']./*Telefono Clinica*/"',
+                '".$key['m05']./*Celular*/"',
+                '".$key['m06']./*Email*/"',
+                '".$key['m07']./*Año y uni de graduacion*/"',
+                '".$key['m08']./*Numero Paciente Estimado*/"',
+                '".$key['m09']./*Motivo consulta frecuente*/"',
+                '".$key['m10']./*Costo consulta*/"',
+                ".$key['m33']./*Propietario farmacia*/",
+                '".$key['m11']./*Socio clinica*/"',
+                '".$key['m12']./*Marca celular*/"',
+                '".$key['m13']./*Marca vehiculo*/"',
+                '".$key['m14']./*Marca reloj*/"',
+                '".$key['m15']./*Marca computadora*/"',
+                '".$key['m16']./*Nombre asistente*/"',
+                '".$key['m17']./*Telef extension asistente*/"',
+                '".$key['m18']./*Celular asistente*/"',
+                '".$key['m19']./*Email asistente*/"',
+                '".$f2./*Fecha nacimiento asistente*/"',
+                '".$key['m21']./*Computadora asistente*/"',
+                '".$key['m22']./*OLBA medica*/"',
+                '".$key['m23']./*Deporte practica*/"',
+                '".$key['m24']./*Pasatiempo*/"',
+                '".$key['m25']./*Sociedad medica participa*/"',
+                '".$key['m26']./*Facebook*/"',
+                '".$key['m27']./*Twitter*/"',
+                '".$key['m28']./*Linkedin*/"',
+                '".$key['m29']./*Instagram*/"',
+                '".$key['m30']./*Ruta*/"')");
+            }
+
+            if ($result) {
+                echo true;
+            }
+
     public function DeleteFarmacia($uID){
         $result = $this->db->delete('farmacias', array('IdFarmacia' => $uID));
         if ($result) {
@@ -570,6 +619,7 @@ class servicios_model extends CI_Model
         $result = $this->db->delete('medicos', array('IdMedico' => $uID));
         if ($result) {
             echo json_encode("OK");
+
         }
     }
 }
