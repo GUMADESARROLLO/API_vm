@@ -17,15 +17,15 @@ class Servicio_controllers extends CI_Controller {
     }
     public function vstCLA()
     {
-        $this->servicios_model->vstCLA($_POST['mVendedor']);
+        $this->servicios_model->vstCLA($_POST['mVendedor'],$_POST['mUID']);
     }
     public function vtsArticulos()
     {
-        $this->servicios_model->vtsArticulos($_POST['mVendedor']);
+        $this->servicios_model->vtsArticulos($_POST['mVendedor'],$_POST['mUID']);
     }
     public function vtsCliente()
     {
-        $this->servicios_model->vtsCliente($_POST['mVendedor']);
+        $this->servicios_model->vtsCliente($_POST['mVendedor'],$_POST['mUID']);
     }
    /* public function vtsTotales()
     {
@@ -33,11 +33,13 @@ class Servicio_controllers extends CI_Controller {
     }*/
     public function MvstCLA()
     {
-        $this->servicios_model->MvstCLA($_POST['mVendedor']);
+        $this->servicios_model->MvstCLA($_POST['mVendedor'],$_POST['mUID']);
     }
     public function MvtsArticulos()
     {
-        $this->servicios_model->MvtsArticulos($_POST['mVendedor']);
+        $this->servicios_model->MvtsArticulos($_POST['mVendedor'],$_POST['mUID']);
+        //$this->servicios_model->MvtsArticulos("'F03','F13'","VM07");
+
     }
     public function Farmacias(){
         $this->servicios_model->guardandoCambiosFarmacia($_POST['mFarmacias']);
@@ -45,23 +47,29 @@ class Servicio_controllers extends CI_Controller {
     }
     public function MvtsCliente()
     {
-        $this->servicios_model->MvtsCliente($_POST['mVendedor']);
+        $this->servicios_model->MvtsCliente($_POST['mVendedor'],$_POST['mUID']);
     }
     public function Llaves()
     {
-        $this->servicios_model->Llaves($_POST['mVendedor'],$_POST['mFarmacias'],$_POST['mMedicos']);
+        $this->servicios_model->Llaves($_POST['mVendedor'],$_POST['mJsonLlaves']);
+    }
+
+    public function UpdateLlaves()
+    {
+        $this->servicios_model->UpdateLlaves($_POST['mVendedor'],$_POST['mFarmacias'],$_POST['mMedicos'],$_POST['mReportes']);
     }
     public function Login(){
         $this->servicios_model->Login($_POST['mUser'],$_POST['mPassword']);
+        //$this->servicios_model->Login("VM02","AQ4769");
     }
     public function Mcuotas()
     {
-        $this->servicios_model->Mcuotas($_POST['mVendedor']);
-        //$this->servicios_model->Mcuotas("F03");
+        $this->servicios_model->Mcuotas($_POST['mVendedor'],$_POST['mUID']);
+        //$this->servicios_model->Mcuotas("'F03','F13'","VM07");
     }
     public function HstItemFacturados()
     {
-        $this->servicios_model->HstItemFacturados($_POST['mVendedor']);
+        $this->servicios_model->HstItemFacturados($_POST['mVendedor'],$_POST['mUID']);
     }
     public function DeleteFarmacia()
     {
@@ -82,24 +90,20 @@ class Servicio_controllers extends CI_Controller {
 
     public function ROUND()
     {
-       // $this->servicios_model->ROUND();
+        //$this->servicios_model->ROUND();
     }
 
     public function Medicos()
     {
-        //$this->servicios_model->Medicos($_POST['mVendedor']);
-        echo '[{"m01":"3131313132132","m010":"","m011":"","m012":"","m013":"","m014":"","m016":"","m017":"","m018":"","m019":"","m02":"12/04/2018","m020":"","m03":"313213132132","m04":"78798798798798","m05":"","m06":"","m07":"","m08":"","m09":"","m21":"","m22":"","m23":"","m24":"","m25":"00/00/000","m26":"","m27":"","m28":"","m29":"","m30":"","m31":1,"m32":5,"mRuta":"F09","mUID":"F09-M2"}]';
+        $this->servicios_model->guardandoCambiosMedicos($_POST['mJSONMedicos']);
+        $this->servicios_model->Medicos($_POST['mVendedor']);
     }
     public function Especialidades(){
         $this->servicios_model->Especialidades();
     }
 
     public function Logs(){
-        //echo '[{"UID":"F09-R2","mCliente":"F09-M1","mFecha":1523651448814,"mLatitud":"12.1021467","mLogitud":"12.1021467","mRuta":"F09"},{"UID":"F09-R3","mCliente":"F09-M1","mFecha":1523651649543,"mLatitud":"12.1021558","mLogitud":"-86.2642666","mRuta":"F09"}]';
-        date_default_timezone_set("America/Managua");
-        $mil = 1523651448814;
-        $seconds = $mil / 1000;
-        echo date("Y-m-d H:i:s", $seconds);
+        $this->servicios_model->logs($_POST['mLogs'],$_POST['mLogsDetalles']);
     }
 
     /*ADD-UPDATE FARMACIA*/
